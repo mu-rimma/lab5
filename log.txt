@@ -1,0 +1,3 @@
+[ERROR]: name 'result' is not defined
+[INFO]: Конвертация Фунты в килограммы:4.40924
+[ERROR]: could not convert string to float: ''

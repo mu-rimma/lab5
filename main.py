@@ -95,21 +95,26 @@ while True:
         window['-OPTION-'].update('')
         window['-RESULT-'].update('')
 
-    elif event == 'Выбрать':
-        try:
-            if values['-OPTION-'] == 'Килограммы в фунты':
-                result = float(values['-INPUT-']) * 2.20462
-            elif values['-OPTION-'] == 'Фунты в килограммы':
+    elif (event == 'Выбрать') or (event == 'Конвертировать'):
+        if values['-OPTION-'] == '':
+            decorator.log_warning_to_file('log.txt', f'Не выбран вариант конвертации')
+            window['-RESULT-'].update('')
+        else:
+            try:
+                if values['-OPTION-'] == 'Килограммы в фунты':
+                    result = float(values['-INPUT-']) * 2.20462
 
-                result = float(values['-INPUT-']) * 2.20462
+                elif values['-OPTION-'] == 'Фунты в килограммы':
+                    result = float(values['-INPUT-']) / 2.20462
 
-            elif values['-OPTION-'] == 'Килограммы в граммы':
+                elif values['-OPTION-'] == 'Килограммы в граммы':
+                    result = float(values['-INPUT-']) * 1000
 
-                result = float(values['-INPUT-']) * 1000
-            window['-RESULT-'].update(f'Вес: {result}')
-            decorator.log_info_to_file('log.txt', f'Конвертация {values["-OPTION-"]}:{result}')
-        except Exception as e:
-            decorator.log_error_to_file('log.txt', str(e))
-            decorator.log_error_to_stderr(str(e))
+                window['-RESULT-'].update(f'Вес: {result}')
+                decorator.log_info_to_file('log.txt', f'Конвертация {values["-OPTION-"]}:{result}')
+
+            except Exception as e:
+                decorator.log_error_to_file('log.txt', str(e))
+                decorator.log_error_to_stderr(str(e))
 
 window.close()
